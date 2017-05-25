@@ -1,26 +1,74 @@
-import random as rd
+
 import time as t
-import csv as csv
-# import matplotlib.pyplot as pyplot
-# import pandas as pandas
 
-# INIT
-def wuerfele():
-	return rd.randint(1,6)
 
-def writestat(stat, filename, summe):
-	with open(filename, 'wt') as csvfile:
-		csvwriter = csv.writer(csvfile)
-		csvwriter.writerow(['Würfel', 'Anzahl'])
-		for i in range(len(stat)):
-			csvwriter.writerow([str(i) + "er: ", str(stat[i])])
-		csvwriter.writerow(["Summe", summe])
+class Wuerfel(object):
+	import random as rd
+
+	def __init__(self):
+		pass
+
+	def wuerfele():
+		return self.rd.randinit(1,6)
+
+class Statistik(object):
+	import csv as csv
+	Statistik = {}
+
+	def __init__(self, keys = "123456", keytitle = "Wert", valuetitle = "Anzahl"]):
+		# Initialisiere Statistik-Array
+		for key in keys:
+			self.Statistik[key] = 0
+		# Titel festlegen
+		self.KeyTitle = keytitle
+		self.ValueTitle = valuetitle
+
+	def writecsv(self, filename, extrainfos={"Test": "Test"}):
+		with open(filename, 'wt') as csvfile:
+			csvwriter = csv.writer(csvfile)
+			# Titelzeile schreiben
+			csvwriter.writerow([self.KeyTitle, self.ValueTitle])
+			# Schreibe Statistik
+			for key in self.Statistik.keys():
+  				csvwriter.writerow([key, str(self.Statistik[key])])
+			# Schreibe Zusatzinfo
+			for key in extrainfos.keys():
+				csvwriter.writerow([key, extrainfos[key]])
+
+	def add(self, key):
+		self.Statistik[key] = self.Statistik[key] + 1
+
+class Timer(object):
+	import time as t
+	Time = 0
+	StartTime = 0
+	EndTime = 0
+
+	def __init__(self):
+		pass
+
+	def start(self):
+		if(self.Running == False):
+			self.StartTime = t.time()
+			self.Running = True
+			self.Time = 0
+		else:
+			print("Bitte stoppe zuerst den Timer!")
+
+	def stop(self):
+		if(self.Running):
+			self.EndTime = t.time()
+			self.Running = False
+			self.Time = self.EndTime - self.StartTime
+		else:
+			print("Bitte starte zuerst den Timer.")
+
+	def get(self):
+		return self.Time
 		
-
-
 while True:
 	try:
-		statistik = [0,0,0,0,0,0,0]
+		statistik = Statistik("123456", "Augenzahl", "Anzahl")
 		menge = input ("Wie oft soll gewürfelt werden? ")
 		menge = int(menge)
 		starttime = t.time()
