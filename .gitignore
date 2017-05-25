@@ -1,2 +1,3 @@
 wuerfeln*.csv
 lib
+__pycache__
