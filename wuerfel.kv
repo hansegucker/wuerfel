@@ -1,0 +1,21 @@
+
+<Wuerfel>:
+    name: 'wuerfel'
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            size_hint_y: 0.8
+            canvas:
+                Color:
+                    rgba: 1,0,0,0.3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: "Anzahl der Würfe"
+            Button:
+                text: 'zum Setup'
+        BoxLayout:
+            size_hint_y: 0.2
+            Label:
+                text: "(C) Copyright 2017 by Jonathan Finn Weth, Lübeck (joniweth@gmx.de)"
