@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import (QWidget, QToolTip, QDesktopWidget,
     QMessageBox,
     QApplication)
 from PyQt5.QtGui import QIcon, QFont
+from wuerfellib import Wuerfeln
 
 ####################
 # Zusatzfunktionen #
@@ -31,6 +32,7 @@ def initwuerfelgui():
 
     startlabel = QLabel("Anzahl der Würfelvorgänge: ")
     wuerfelgui.starttextbox = QLineEdit("1000")
+    copyrightlabel = QLabel("(C) 2017 by Jonathan Weth (joniweth@gmx.de)")
 
     startbutton = QPushButton("Würfeln")
     startbutton.setToolTip("Klicke auf diesen Button, um den <b>Würfelvorgang</b> zu starten")
@@ -45,6 +47,7 @@ def initwuerfelgui():
     vbox = QVBoxLayout()
     vbox.addLayout(hbox)
     vbox.addWidget(startbutton)
+    vbox.addWidget(copyrightlabel)
 
     wuerfelgui.setLayout(vbox)
 
@@ -59,7 +62,7 @@ def initwuerfelgui():
     # Fenster zeigen
     wuerfelgui.show()
 
-def initergebnisgui():
+def initergebnisgui(wuerfeln):
     """ Initialisiert die Ergebnisansicht """
 
     global ergebnisgui
@@ -70,6 +73,27 @@ def initergebnisgui():
     # Aussehen
     ergebnisgui.setWindowTitle('Ergebnis - Würfel')
     ergebnisgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
+
+    copyrightlabel = QLabel("(C) 2017 by Jonathan Weth (joniweth@gmx.de)")
+
+    statboxes = {}
+    statlabels = {}
+    statvaluelabels = {}
+
+    for key in wuerfeln.Statistik.Statistik.keys():
+        statlabels[key] = QLabel(key + "er: ")
+        statvaluelabels[key] = QLabel(str(wuerfeln.Statistik.Statistik[key]))
+        statboxes[key] = QHBoxLayout()
+        statboxes[key].addWidget(statlabels[key])
+        statboxes[key].addWidget(statvaluelabels[key])
+
+    # Vertikal (I)
+    vbox = QVBoxLayout()
+    for key in wuerfeln.Statistik.Statistik.keys():
+        vbox.addLayout(statboxes[key])
+    vbox.addWidget(copyrightlabel)
+
+    ergebnisgui.setLayout(vbox)
 
     # Fenster zeigen
     ergebnisgui.show()
@@ -101,12 +125,12 @@ def initwaitgui():
 # Resets Fenster #
 ##################
 
-def resetwuerfelgui():
-    """ Setzt die Startansicht zurück """
-
-    global wuerfelgui
-    wuerfelgui.starttextbox.clear()
-    wuerfelgui.starttextbox.insert("1000")
+# def resetwuerfelgui():
+#     """ Setzt die Startansicht zurück """
+#
+#     global wuerfelgui
+#     wuerfelgui.starttextbox.clear()
+#     wuerfelgui.starttextbox.insert("1000")
 
 ###################
 # Eventfunktionen #
@@ -126,6 +150,12 @@ def startwuerfeln():
         # Öffne Ergebnisansicht und schließe Startansicht
         initwaitgui()
         wuerfelgui.hide()
+
+        # Würfele
+        wuerfeln = Wuerfeln()
+        wuerfeln.wuerfele(menge)
+        initergebnisgui(wuerfeln)
+        waitgui.hide()
     else:
         QMessageBox.warning(wuerfelgui, 'Fehler',
             "Bitte geben sie eine gültige Zahl ein!")
