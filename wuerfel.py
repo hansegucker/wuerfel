@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import time as t
 from wuerfellib import Wuerfel, Timer, Statistik
 

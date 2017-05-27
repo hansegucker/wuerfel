@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Wuerfel(object):
 	import random as rd
 
