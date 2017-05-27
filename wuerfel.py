@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import time as t
-from wuerfellib import Wuerfel, Timer, Statistik
-
+from wuerfellib import Wuerfel, Timer, Statistik, Wuerfeln
 
 while True:
-	# Initialisiere Objekte
-	statistik = Statistik("123456", "Augenzahl", "Anzahl")
-	wuerfel = Wuerfel()
-	timer = Timer()
+	# Initialisiere Objekt
+	wuerfeln = Wuerfeln()
 
 	# Frage Anzahl der Würfe ab
 	while True:
@@ -19,41 +16,27 @@ while True:
 		else:
 			print("Bitte gebe eine gültige Zahl ein")
 
-	# Starte den Timer
-	timer.start()
-
-	# Würfeln
-	for i in range(menge):
-		x = wuerfel.wuerfele()
-		statistik.add(str(x))
-
-	# Stoppe Timer
-	timer.stop()
+	# Würfele
+	wuerfeln.wuerfele(menge)
 
 	# Gebe Statistik aus
-	statistik.show()
+	wuerfeln.Statistik.show()
 
 	# Gebe gebrauchte Zeit aus
 	print("--")
-	print("Dauer in Sekunden für " + str(menge) + "x Würfeln: " + str(timer.Time))
+	print("Dauer in Sekunden für " + str(wuerfeln.Menge) + "x Würfeln: " + str(wuerfeln.Timer.Time))
 
 	# Schreibe Statistik in csv
-	try:
-		statfile = "wuerfeln" + str(timer.Time) + ".csv"
-		print("--")
-		print("CSV-Datei mit Ergebnissen: " + statfile)
-		statistik.writecsv(statfile, {"Anzahl der Würfe: ": menge})
-	except:
-		print("Leider konnte die CSV-Datei nicht geschrieben werden!")
+	statfile = wuerfeln.StatFile
+	print("--")
+	print("CSV-Datei mit Ergebnissen: " + statfile)
 
 	print("######################################")
 	print("######################################")
 
 	# Lösche die Objekte wieder
-	del menge, statfile
-	del wuerfel
-	del statistik
-	del timer
+	del statfile
+	del wuerfeln
 
 	# Mache 1 Sekunde Pause
 	t.sleep(1)

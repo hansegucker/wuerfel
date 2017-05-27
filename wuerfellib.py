@@ -116,3 +116,34 @@ class Timer(object):
 		"""
 
 		return self.Time
+
+class Wuerfeln(object):
+	Menge = 0
+	StatFile = ""
+
+	def __init__(self):
+		# Initialisiere Objekte
+		self.Statistik = Statistik("123456", "Augenzahl", "Anzahl")
+		self.Wuerfel = Wuerfel()
+		self.Timer = Timer()
+
+	def wuerfele(self, menge):
+		self.Menge = menge
+
+		# Starte den Timer
+		self.Timer.start()
+
+		# Würfeln
+		for i in range(self.Menge):
+			x = self.Wuerfel.wuerfele()
+			self.Statistik.add(str(x))
+
+		# Stoppe Timer
+		self.Timer.stop()
+
+		# Schreibe Statistik in csv
+		try:
+			self.StatFile = "wuerfeln" + str(self.Timer.Time) + ".csv"
+			self.Statistik.writecsv(self.StatFile, {"Anzahl der Würfe: ": menge})
+		except:
+			print("Leider konnte die CSV-Datei nicht geschrieben werden!")

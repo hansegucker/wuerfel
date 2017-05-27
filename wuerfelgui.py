@@ -8,64 +8,21 @@ from PyQt5.QtWidgets import (QWidget, QToolTip, QDesktopWidget,
     QApplication)
 from PyQt5.QtGui import QIcon, QFont
 
+####################
+# Zusatzfunktionen #
+####################
 
-def initergebnisgui():
-    """ Initialisiert die Ergebnisansicht """
+def center(gui):
+    """ Zentriert ein Fenster """
 
-    global ergebnisgui
-    # Größe und Position
-    ergebnisgui.setGeometry(300, 300, 300, 220)
-    center(ergebnisgui)
+    qr = gui.frameGeometry()
+    cp = QDesktopWidget().availableGeometry().center()
+    qr.moveCenter(cp)
+    gui.move(qr.topLeft())
 
-    # Aussehen
-    ergebnisgui.setWindowTitle('Ergebnis - Würfel')
-    ergebnisgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
-
-    # Fenster zeigen
-    ergebnisgui.show()
-
-def initwaitgui():
-    """ Initialisiert die Warteansicht """
-
-    global ergebnisgui
-    # Größe und Position
-    ergebnisgui.setGeometry(300, 300, 300, 220)
-    center(ergebnisgui)
-
-    # Aussehen
-    ergebnisgui.setWindowTitle('Ergebnis - Würfel')
-    ergebnisgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
-
-    # Fenster zeigen
-    ergebnisgui.show()
-
-
-def resetwuerfelgui():
-    """ Setzt die Startansicht zurück """
-
-    global wuerfelgui
-    wuerfelgui.starttextbox.clear()
-    wuerfelgui.starttextbox.insert("1000")
-
-def startwuerfeln():
-    """ Startet den Würfelvorgang """
-
-    global wuerfelgui
-    print("Starte Würfelvorgang ...")
-    menge = wuerfelgui.starttextbox.text()
-    try:
-        menge = int(menge)
-        print("Anzahl ist numerisch!")
-        print("Anzahl: " + str(wuerfelgui.starttextbox.text()))
-        
-        # Öffne Ergebnisansicht und schließe Startansicht
-        initergebnisgui()
-        wuerfelgui.hide()
-    except:
-        QMessageBox.warning(wuerfelgui, 'Fehler',
-            "Bitte geben sie eine gültige Zahl ein!")
-
-
+#############################
+# Initialisierungen Fenster #
+#############################
 
 def initwuerfelgui():
     """ Initialisiert die GUI der Startansicht"""
@@ -102,14 +59,77 @@ def initwuerfelgui():
     # Fenster zeigen
     wuerfelgui.show()
 
-def center(gui):
-    """ Zentriert ein Fenster """
+def initergebnisgui():
+    """ Initialisiert die Ergebnisansicht """
 
-    qr = gui.frameGeometry()
-    cp = QDesktopWidget().availableGeometry().center()
-    qr.moveCenter(cp)
-    gui.move(qr.topLeft())
+    global ergebnisgui
+    # Größe und Position
+    ergebnisgui.setGeometry(300, 300, 300, 220)
+    center(ergebnisgui)
 
+    # Aussehen
+    ergebnisgui.setWindowTitle('Ergebnis - Würfel')
+    ergebnisgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
+
+    # Fenster zeigen
+    ergebnisgui.show()
+
+def initwaitgui():
+    """ Initialisiert die Warteansicht """
+
+    global waitgui
+    # Größe und Position
+    waitgui.setGeometry(300, 300, 300, 220)
+    center(waitgui)
+
+    # Aussehen
+    waitgui.setWindowTitle('Bitte warten ...')
+    waitgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
+
+    # Bitte warten
+    waitlabel = QLabel("Bitte warten ...")
+
+    hbox = QHBoxLayout()
+    hbox.addWidget(waitlabel)
+
+    waitgui.setLayout(hbox)
+
+    # Fenster zeigen
+    waitgui.show()
+
+##################
+# Resets Fenster #
+##################
+
+def resetwuerfelgui():
+    """ Setzt die Startansicht zurück """
+
+    global wuerfelgui
+    wuerfelgui.starttextbox.clear()
+    wuerfelgui.starttextbox.insert("1000")
+
+###################
+# Eventfunktionen #
+###################
+
+def startwuerfeln():
+    """ Startet den Würfelvorgang """
+
+    global wuerfelgui
+    print("Starte Würfelvorgang ...")
+    menge = wuerfelgui.starttextbox.text()
+    if(menge.isnumeric()):
+        menge = int(menge)
+        print("Anzahl ist numerisch!")
+        print("Anzahl: " + str(wuerfelgui.starttextbox.text()))
+
+        # Öffne Ergebnisansicht und schließe Startansicht
+        initwaitgui()
+        wuerfelgui.hide()
+    else:
+        QMessageBox.warning(wuerfelgui, 'Fehler',
+            "Bitte geben sie eine gültige Zahl ein!")
+        wuerfelgui.setFocus()
 
 if __name__ == '__main__':
 
