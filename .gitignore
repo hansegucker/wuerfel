@@ -1,3 +1,5 @@
 wuerfeln*.csv
 lib
 __pycache__
+PyQt5
+sip.so

@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (QWidget, QToolTip, QDesktopWidget,
     QLineEdit, QPushButton, QLabel,
     QMessageBox,
     QApplication)
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtCore import *
 from wuerfellib import Wuerfeln
 
@@ -154,11 +154,15 @@ class WaitUI(Window):
 
     def initUI(self):
         # Widgets
+        pixmap = QPixmap("waiticon-small.png")
         self.Labels["wait"] = QLabel("Bitte warten ...")
+        self.Labels["icon"] = QLabel()
+        self.Labels["icon"].setPixmap(pixmap)
 
         # Layouts
         self.Layouts["hbox"] = QHBoxLayout()
         self.Layouts["hbox"].addWidget(self.Labels["wait"])
+        self.Layouts["hbox"].addWidget(self.Labels["icon"])
 
         self.setLayout(self.Layouts["hbox"])
 
