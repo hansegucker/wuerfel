@@ -63,17 +63,17 @@ from wuerfellib import Wuerfeln
 #     # Fenster zeigen
 #     wuerfelgui.show()
 
-def initergebnisgui(wuerfeln):
-    """ Initialisiert die Ergebnisansicht """
-
-    global ergebnisgui
-    # Größe und Position
-    #ergebnisgui.setGeometry(300, 300, 300, 220)
-    center(ergebnisgui)
-
-    # Aussehen
-    ergebnisgui.setWindowTitle('Ergebnis - Würfel')
-    ergebnisgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
+# def initergebnisgui(wuerfeln):
+#     """ Initialisiert die Ergebnisansicht """
+#
+#     global ergebnisgui
+#     # Größe und Position
+#     #ergebnisgui.setGeometry(300, 300, 300, 220)
+#     center(ergebnisgui)
+#
+#     # Aussehen
+#     ergebnisgui.setWindowTitle('Ergebnis - Würfel')
+#     ergebnisgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
 
     # copyrightlabel = QLabel("(C) 2017 by Jonathan Weth (joniweth@gmx.de)")
     #
@@ -118,26 +118,26 @@ def initergebnisgui(wuerfeln):
 
 def initwaitgui():
     """ Initialisiert die Warteansicht """
+    #
+    # global waitgui
+    # # Größe und Position
+    # #waitgui.setGeometry(300, 300, 300, 220)
+    # center(waitgui)
+    #
+    # # Aussehen
+    # waitgui.setWindowTitle('Bitte warten ...')
+    # waitgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
 
-    global waitgui
-    # Größe und Position
-    #waitgui.setGeometry(300, 300, 300, 220)
-    center(waitgui)
-
-    # Aussehen
-    waitgui.setWindowTitle('Bitte warten ...')
-    waitgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
-
-    # Bitte warten
-    waitlabel = QLabel("Bitte warten ...")
-
-    hbox = QHBoxLayout()
-    hbox.addWidget(waitlabel)
-
-    waitgui.setLayout(hbox)
-
-    # Fenster zeigen
-    waitgui.show()
+    # # Bitte warten
+    # waitlabel = QLabel("Bitte warten ...")
+    #
+    # hbox = QHBoxLayout()
+    # hbox.addWidget(waitlabel)
+    #
+    # waitgui.setLayout(hbox)
+    #
+    # # Fenster zeigen
+    # waitgui.show()
 
 ###################
 # Eventfunktionen #
@@ -145,28 +145,28 @@ def initwaitgui():
 
 def startwuerfeln():
     """ Startet den Würfelvorgang """
-
-    global wuerfelgui
-    print("Starte Würfelvorgang ...")
-    menge = wuerfelgui.starttextbox.text()
-    if(menge.isnumeric()):
-        menge = int(menge)
-        print("Anzahl ist numerisch!")
-        print("Anzahl: " + str(wuerfelgui.starttextbox.text()))
-
-        # Öffne Ergebnisansicht und schließe Startansicht
-        initwaitgui()
-        wuerfelgui.hide()
+    #
+    # global wuerfelgui
+    # print("Starte Würfelvorgang ...")
+    # menge = wuerfelgui.starttextbox.text()
+    # if(menge.isnumeric()):
+    #     menge = int(menge)
+    #     print("Anzahl ist numerisch!")
+    #     print("Anzahl: " + str(wuerfelgui.starttextbox.text()))
+    #
+    #     # Öffne Ergebnisansicht und schließe Startansicht
+    #     initwaitgui()
+    #     wuerfelgui.hide()
 
         # Würfele
         wuerfeln = Wuerfeln()
         wuerfeln.wuerfele(menge)
         initergebnisgui(wuerfeln)
         waitgui.hide()
-    else:
-        QMessageBox.warning(wuerfelgui, 'Fehler',
-            "Bitte geben sie eine gültige Zahl ein!")
-        wuerfelgui.setFocus()
+    # else:
+    #     QMessageBox.warning(wuerfelgui, 'Fehler',
+    #         "Bitte geben sie eine gültige Zahl ein!")
+    #     wuerfelgui.setFocus()
 
 if __name__ == '__main__':
 
