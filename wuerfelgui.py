@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import (QWidget, QToolTip, QDesktopWidget,
     QMessageBox,
     QApplication)
 from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtCore import *
 from wuerfellib import Wuerfeln
 
 ####################
@@ -52,7 +53,7 @@ def initwuerfelgui():
     wuerfelgui.setLayout(vbox)
 
     # Größe und Position
-    wuerfelgui.setGeometry(300, 300, 300, 220)
+    #wuerfelgui.setGeometry(300, 100, 300, 10)
     center(wuerfelgui)
 
     # Aussehen
@@ -67,7 +68,7 @@ def initergebnisgui(wuerfeln):
 
     global ergebnisgui
     # Größe und Position
-    ergebnisgui.setGeometry(300, 300, 300, 220)
+    #ergebnisgui.setGeometry(300, 300, 300, 220)
     center(ergebnisgui)
 
     # Aussehen
@@ -75,6 +76,20 @@ def initergebnisgui(wuerfeln):
     ergebnisgui.setWindowIcon(QIcon('wuerfelicon-small.png'))
 
     copyrightlabel = QLabel("(C) 2017 by Jonathan Weth (joniweth@gmx.de)")
+
+    ergebnislabel = QLabel("<h1>ERGEBNIS</h1>")
+    ergebnislabel.setAlignment(Qt.AlignCenter)
+    anzahllabel = QLabel("Anzahl der Würfe: ")
+    anzahlvaluelabel = QLabel(str(wuerfeln.Menge))
+    timelabel = QLabel("Dauer (in Sekunden): ")
+    timevaluelabel = QLabel(str(wuerfeln.Timer.Time))
+
+    anzahlhbox = QHBoxLayout()
+    anzahlhbox.addWidget(anzahllabel)
+    anzahlhbox.addWidget(anzahlvaluelabel)
+    timehbox = QHBoxLayout()
+    timehbox.addWidget(timelabel)
+    timehbox.addWidget(timevaluelabel)
 
     statboxes = {}
     statlabels = {}
@@ -89,8 +104,11 @@ def initergebnisgui(wuerfeln):
 
     # Vertikal (I)
     vbox = QVBoxLayout()
+    vbox.addWidget(ergebnislabel)
+    vbox.addLayout(anzahlhbox)
     for key in wuerfeln.Statistik.Statistik.keys():
         vbox.addLayout(statboxes[key])
+    vbox.addLayout(timehbox)
     vbox.addWidget(copyrightlabel)
 
     ergebnisgui.setLayout(vbox)
@@ -103,7 +121,7 @@ def initwaitgui():
 
     global waitgui
     # Größe und Position
-    waitgui.setGeometry(300, 300, 300, 220)
+    #waitgui.setGeometry(300, 300, 300, 220)
     center(waitgui)
 
     # Aussehen
