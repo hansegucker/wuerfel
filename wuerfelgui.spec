@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['wuerfelgui.py'],
-             pathex=['/Users/jonathanweth/Desktop/wuerfel'],
+             pathex=['/home/jonathan/Schreibtisch/wuerfel'],
              binaries=[],
              datas=[],
              hiddenimports=[],
