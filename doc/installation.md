@@ -1,6 +1,6 @@
 # Installation
 ## Mac OSX
-1. Als Admin anmelden
+1. Als Benutzer mit Adminrechten anmelden
 ### Python installieren
 1. Download Python3.*: https://www.python.org/ftp/python/3.6.1/python-3.6.1-macosx10.6.pkg
 2. `python-3.*.*-macosx*.*.pkg` ausführen
@@ -22,6 +22,21 @@
   ```
   $ sudo su
   $ pip3 install PyQt5
+  ```
+### Programm herunterladen und ausführen
+1. Terminal öffnen
+2. Folgende Befehle im Terminal ausführen:
+  ```
+  $ git clone https://github.com/hansegucker/wuerfel.git
+  $ cd wuerfel
+  $ python3 wuerfelgui.py
+  ```
+## Linux (Debian, Ubuntu, Linux Mint)
+1. Als Benutzer mit Adminrechten anmelden
+### Python 3, PyQt5 und git installieren
+1. Folgende Befehle im Terminal ausführen:
+  ```
+  $ sudo apt-get install python3 python3-pyqt5 git
   ```
 ### Programm herunterladen und ausführen
 1. Terminal öffnen
