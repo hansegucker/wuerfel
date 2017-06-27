@@ -1,5 +1,4 @@
-wuerfeln*.csv
-lib
+src/wuerfeln*.csv
 __pycache__
-PyQt5
-sip.so
+build
+dist

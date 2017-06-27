@@ -32,30 +32,22 @@ while True:
     print("")
     print("Bitte geben Sie eine 1, 2 oder 3 ein!")
 
-input("Bitte erfüllen Sie die Abhängigkeiten, die in XY beschrieben sind. [ENTER]")
-
-print("Hole die Programmdateien ...")
-if operationsystem == 3:
-    os.system("rd /s /q wuerfel")
-else:
-    os.system("rm -R -f wuerfel")
-
-os.system("git clone git@github.com:hansegucker/wuerfel.git")
+input("Bitte erfüllen Sie die Abhängigkeiten, die in doc/installation.md beschrieben sind. [ENTER]")
 
 print("Baue die Programmdateien")
-if operationsystem == 3:
-    os.system("rd /s /q build")
-    os.system("rd /s /q dist")
-else:
-    os.system("rm -R -f build")
-    os.system("rm -R -f dist")
-os.system("pyinstaller wuerfel/wuerfelgui.py")
+# if operationsystem == 3:
+#     os.system("rd /s /q build")
+#     os.system("rd /s /q dist")
+
+os.system("pyinstaller src/wuerfelgui.py")
 
 if operationsystem == 1:
-    print("Hole Installerhelferdaten ...")
-    os.system("rm -R -f wuerfel-install-linux")
-    os.system("git clone git@github.com:hansegucker/wuerfel-install-linux.git")
-
     print("Kopiere Programmdateien ...")
+    os.system("cp -r dist/wuerfelgui install-linux/usr/share")
+    os.system("rm -R -f build")
+    os.system("rm -R -f dist")
+
+    print("Baue deb-Packet ...")
+    os.system("cd install-linux && ./build.sh")
+
     os.system("rm -R -f wuerfel-install-linux/usr/share/wuerfelgui")
-    os.system("cp dist/wuerfelgui wuerfel-install-linux/usr/share")
